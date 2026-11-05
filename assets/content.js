@@ -403,7 +403,7 @@ EN CAS D’ÉCHEC
   conserver étape, attendu/obtenu et identifiant de corrélation`;
 
 // Les identifiants sont stables : ne pas les réutiliser pour un autre contenu.
-root.PORTAL_CONTENT={version:'2.0.0',lessons,courses:[
+root.PORTAL_CONTENT={version:'3.0.0',lessons,courses:[
 {id:'istqb',title:'ISTQB CTAL-TAE v2.0',short:'ISTQB CTAL-TAE',tag:'AUTOMATISATION DES TESTS',description:'Des décisions d’automatisation à l’amélioration continue : un parcours de cas pratiques en huit chapitres.',prerequisite:'Bases du test logiciel de niveau CTFL et lecture de pseudocode conseillées. Ce support indépendant ne remplace pas le syllabus ni une formation accréditée.',color:'teal'},
 {id:'vibe',title:'Vibe Coding',short:'Vibe Coding',tag:'DÉVELOPPEMENT ASSISTÉ PAR IA',description:'Transformer une idée en petit outil vérifié, par étapes : spécifier, construire, tester et livrer.',prerequisite:'Aucun outil IA payant requis. Les exercices se font sur un projet fictif ; les exemples de code utilisent JavaScript et les API du navigateur.',color:'orange'}]};
 })(typeof window==='undefined'?globalThis:window);

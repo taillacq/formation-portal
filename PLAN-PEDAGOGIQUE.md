@@ -33,10 +33,26 @@ Le terme est utilisé ici pour un développement assisté par IA avec revue et v
 
 Des exemples de code accompagnent le cadrage, la page initiale, le filtrage testé et la validation de fichier. Le code du portail constitue aussi une réalisation consultable des principes de sauvegarde. Le mini-bilan réutilise une question de chacune des dix leçons.
 
+## Git : les bases et la pratique
+
+Pour débuter : savoir créer un dossier et éditer un fichier texte. La consultation et les quiz ne nécessitent aucune installation. Pour exécuter les exercices : Git 2.28+ et un éditeur sur un poste autorisé. Le fil rouge utilise un dépôt fictif `atelier-git`, un partage local `partage.git` et un clone `lecteur-b`, sans connexion à un service.
+
+| Étape | Leçons stables | Résultat à produire |
+| --- | --- | --- |
+| Repères | git-01, git-02 | Distinguer travail, index et historique ; créer un premier commit local |
+| Travail quotidien | git-03, git-04 | Prédire le contenu préparé et examiner une évolution sans modifier le projet |
+| Branches et intégration | git-05, git-06 | Isoler une intention et reconnaître une fusion fast-forward |
+| Conflit | git-07 | Réconcilier deux éditions concurrentes et expliquer les deux parents du commit |
+| Revenir et mettre de côté | git-08, git-09 | Désindexer sans perte, annuler un commit simple, réappliquer un stash et expliquer ignore |
+| Collaboration | git-10, git-11 | Distinguer réception et intégration, partager une branche et un tag annoté |
+| Synthèse | git-12 | Livrer une évolution vérifiée et retrouver le même état dans l’autre clone |
+
+Les 12 leçons comprennent 36 questions originales, trois par leçon. Le mini-bilan reprend une question de chaque leçon. Les blocs de commandes accompagnent des actions dans l’éditeur ; ils ne sont jamais exécutés par le portail. La fiche **GIT-ATELIER.md** rappelle les états et commandes. Les notions avancées comme rebase, réécriture d’historique, sous-modules et récupération par reflog restent hors de cette initiation.
+
 ## Limites assumées
 
 - Les QCM vérifient surtout compréhension et application simple ; les exercices demandent une production plus ouverte.
 - Le portail ne corrige pas automatiquement les exercices libres. Il propose une solution commentée à comparer à votre travail.
 - Aucun correcteur IA, appel à un modèle ou envoi de code n’est intégré.
 - Les marqueurs terminés et scores sont un suivi personnel, pas une attestation.
-- Les autres modules éventuels de la V1 ne sont pas repris dans cette V2 autonome : priorité aux deux parcours demandés.
+- Les autres modules éventuels de la V1 ne sont pas repris : cette V3 conserve les deux parcours de la V2 et y ajoute Git.

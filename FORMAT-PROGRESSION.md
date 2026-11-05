@@ -1,4 +1,4 @@
-# Progression V2 : contrat et limites
+# Progression V3 : contrat, reprise V2 et limites
 
 ## Format JSON
 
@@ -6,7 +6,7 @@
 {
   "format": "formation-portal-progress",
   "schemaVersion": 2,
-  "contentVersion": "2.0.0",
+  "contentVersion": "3.0.0",
   "exportedAt": "2026-11-05T10:00:00.000Z",
   "progress": {
     "completed": ["tae-01"],
@@ -29,11 +29,11 @@ Cet exemple est documentaire, pas une sauvegarde de votre progression. `best` et
 
 - Maximum 1 048 576 octets, vérifié sur le fichier puis sur le texte UTF-8.
 - JSON lisible, objets et champs exacts ; aucun champ libre supplémentaire.
-- Format, schéma et version de contenu compatibles (`2` et `2.0.0` dans ce lot).
+- Format et schéma compatibles : schéma `2`, version de contenu `3.0.0` ou ancienne `2.0.0`. Un export déclaré V2 ne peut contenir que les identifiants ISTQB et Vibe Coding existants.
 - Identifiants connus, aucune leçon terminée dupliquée.
 - Scores entiers entre 0 et 3, dernier score inférieur ou égal au meilleur, total égal à 3.
 - Compteur entier entre 1 et 1 000 000, dates ISO UTC valides à la milliseconde.
-- Refus complet pour une version future, un identifiant inconnu ou toute donnée invalide. Aucune migration V1.
+- Refus complet pour une version future, un identifiant inconnu ou toute donnée invalide. Reprise V2 prise en charge, pas de migration V1.
 
 Une sauvegarde n’est pas signée : le portail ne certifie pas l’authenticité d’un score et ne détecte pas une modification manuelle qui reste conforme au schéma. Il s’agit d’un outil personnel d’apprentissage.
 
@@ -53,13 +53,17 @@ La fusion est idempotente : réimporter le même fichier ne crée pas d’acquis
 
 ## Stockage et copie préalable
 
-Clé principale : `formation-portal.progress.v2`.
+Clé principale : `formation-portal.progress.v3`.
 
-Copie locale avant dernier import : `formation-portal.progress.v2.before-import`.
+Copie locale avant dernier import : `formation-portal.progress.v3.before-import`.
 
-Avant un import, l’ancienne valeur principale est copiée puis l’état fusionné est écrit par une seule opération `setItem`. Si la copie ou l’écriture échoue, l’import est signalé comme non appliqué et l’état principal existant est conservé. La copie est locale, non synchronisée et remplacée lors de l’import suivant. Elle peut être téléchargée si elle contient une progression V2 valide. La réimporter fusionne les acquis : ce n’est pas une commande d’annulation destructive.
+Reprise automatique : si la clé principale V3 est absente au premier chargement, le portail lit `formation-portal.progress.v2`, valide le format V2 et reprend les acquis. Il ne modifie ni cette clé V2 ni sa copie préalable. Les leçons Git ne sont pas marquées par cette reprise. La nouvelle clé V3 est écrite à la prochaine action persistante (leçon terminée, quiz ou import). Un export immédiat produit déjà un fichier V3 contenant les acquis repris.
 
-Si la valeur principale est corrompue, le portail la laisse intacte et travaille en session. Un import valide peut la réparer après copie de la valeur brute dans la clé préalable. Une copie brute invalide n’est pas proposée comme export valide ; les nouveaux acquis de session sont conservés dans la fusion.
+Un état V3 existant est toujours prioritaire. Les modifications réalisées ensuite dans la V2 exigent un import explicite de son nouvel export. En cas de clé V2 illisible, l’original reste intact et le portail avertit qu’il travaille en session ; un import valide permet de créer un état V3. La V2 ne sait pas lire un export V3 : un retour à la V2 retrouve seulement sa progression antérieure séparée.
+
+Avant un import, l’ancienne valeur principale est copiée puis l’état fusionné est écrit par une seule opération `setItem`. Si la copie ou l’écriture échoue, l’import est signalé comme non appliqué et l’état principal existant est conservé. La copie est locale, non synchronisée et remplacée lors de l’import suivant. Elle peut être téléchargée si elle contient une progression compatible valide. La réimporter fusionne les acquis : ce n’est pas une commande d’annulation destructive.
+
+Si la valeur principale V3 est corrompue, le portail la laisse intacte et travaille en session. Un import valide peut la réparer après copie de la valeur brute dans la clé préalable. Une copie brute invalide n’est pas proposée comme export valide ; les nouveaux acquis de session sont conservés dans la fusion. Une valeur V2 illisible reste dans sa propre clé lors de la réparation V3.
 
 Si l’écriture normale d’un résultat est impossible, le résultat reste en mémoire et exportable ; un message signale la limite. Lorsque l’accès au stockage existe mais que l’import ne peut pas créer sa copie préalable, l’import est refusé. Le portail n’annonce pas une persistance qui a échoué.
 

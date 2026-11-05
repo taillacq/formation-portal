@@ -22,3 +22,21 @@ ISTQB® est une marque de l’International Software Testing Qualifications Boar
 Les décisions de conception de ce portail (fusion des meilleurs scores, compteurs maximum, taille de fichier et copie préalable) sont propres à ce projet ; elles ne sont pas présentées comme des normes imposées par ces sources.
 
 Ces liens sont facultatifs et peuvent être filtrés par un réseau. Leur indisponibilité n’empêche pas de consulter le contenu local des cours ou d’utiliser les quiz et sauvegardes.
+
+## Nouveau parcours Git — références officielles
+
+Les scénarios de carnet fictif, leurs exercices et questions sont originaux. Les comportements des commandes sont vérifiés à partir des manuels officiels du projet Git. Les liens ci-dessous sont facultatifs ; aucun contenu distant n’est chargé par les leçons.
+
+| Notion | Documentation officielle |
+| --- | --- |
+| Vue d’ensemble | [gittutorial](https://git-scm.com/docs/gittutorial) |
+| Initialisation et identité locale | [init](https://git-scm.com/docs/git-init), [config](https://git-scm.com/docs/git-config) |
+| États et sélection | [status](https://git-scm.com/docs/git-status), [add](https://git-scm.com/docs/git-add), [diff](https://git-scm.com/docs/git-diff) |
+| Enregistrement et lecture | [commit](https://git-scm.com/docs/git-commit), [log](https://git-scm.com/docs/git-log), [show](https://git-scm.com/docs/git-show) |
+| Branches et fusion | [switch](https://git-scm.com/docs/git-switch), [merge](https://git-scm.com/docs/git-merge) |
+| Retours et travail provisoire | [restore](https://git-scm.com/docs/git-restore), [revert](https://git-scm.com/docs/git-revert), [stash](https://git-scm.com/docs/git-stash) |
+| Fichiers ignorés | [gitignore](https://git-scm.com/docs/gitignore) |
+| Partage | [remote](https://git-scm.com/docs/git-remote), [clone](https://git-scm.com/docs/git-clone), [fetch](https://git-scm.com/docs/git-fetch), [push](https://git-scm.com/docs/git-push) |
+| Repères de livraison | [tag](https://git-scm.com/docs/git-tag) |
+
+Manuels consultés le 5 novembre 2026. Les essais locaux de préparation utilisent Git 2.55.0.windows.5 ; les exemples du cours ciblent Git 2.28+ et ne dépendent pas de GitHub. Les règles de restauration sont expliquées avant toute commande susceptible de remplacer du contenu.

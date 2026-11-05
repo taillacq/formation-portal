@@ -1,48 +1,51 @@
-# Mettre à jour le portail existant
+# Installer la V3 sur le portail existant
 
-Site visé : https://taillacq.github.io/formation-portal/
+Site : https://taillacq.github.io/formation-portal/
 
-Cette procédure suppose la configuration déjà validée : dépôt `taillacq/formation-portal`, branche `main`, source Pages `/(root)` et déploiement « Deploy from a branch ». Il n’est pas nécessaire de créer un autre dépôt ni de changer cette configuration.
+Configuration conservée : dépôt `taillacq/formation-portal`, branche `main`, source Pages `/(root)`, « Deploy from a branch ». Aucun changement de service d’hébergement n’est nécessaire.
 
-## 1. Garder un retour arrière
+## 1. Sauvegarder avant la mise à jour
 
-Sur le dépôt GitHub, noter le dernier commit fonctionnel et télécharger une copie du dépôt (Code → Download ZIP). La V2 démarre une nouvelle progression, selon votre choix ; elle laisse les anciennes clés de navigateur intactes, sans les utiliser.
+Depuis la V2, ouvrir **Mes sauvegardes** et télécharger le JSON de progression. Le conserver sur un emplacement personnel autorisé, hors du dépôt public. Sur GitHub, noter le commit fonctionnel et télécharger une copie du dépôt (**Code → Download ZIP**).
 
-## 2. Préparer les fichiers
+La V3 possède une clé de navigateur distincte. Au premier chargement, si aucun état V3 n’existe et si une progression V2 valide est présente à la même adresse, elle est reprise automatiquement. La clé V2 reste intacte. Les actions suivantes sont enregistrées dans la clé V3. Si le navigateur ou l’adresse change, utiliser l’import JSON.
 
-Décompresser `formation-portal-v2.zip`. Dans le dossier obtenu, `index.html` doit se trouver au même niveau que `assets/`, et non à l’intérieur d’un second dossier destiné à être publié sous le portail.
+## 2. Décompresser et téléverser
 
-Les fichiers de sauvegarde de progression téléchargés depuis le portail sont **personnels et doivent rester hors du dépôt public**. Ne téléverser que les fichiers du lot livré, pas le dossier Téléchargements ni d’autres documents.
+1. Décompresser `formation-portal-v3.zip`.
+2. Ouvrir le [dépôt formation-portal](https://github.com/taillacq/formation-portal), puis **Add file → Upload files** sur `main`.
+3. Glisser le **contenu** du dossier décompressé à la racine : `index.html`, `assets/`, `favicon.svg`, les guides et, si souhaité, `tools/`. Ne pas téléverser seulement le ZIP ni placer les fichiers dans un sous-dossier `formation-portal-v3/`.
+4. Vérifier notamment la présence du **nouveau fichier `assets/content-git.js`**, en plus de `content.js`, `progress.js`, `app.js` et `style.css`. Le nouveau HTML charge ces fichiers dans cet ordre.
+5. Conserver ou ajouter `.nojekyll` à la racine. Si ce fichier est masqué dans l’explorateur, afficher les fichiers masqués ou le créer via **Add file → Create new file**, nom `.nojekyll`, contenu vide ou une ligne.
+6. Enregistrer le commit, par exemple `Portail V3 : ajouter la formation Git`.
 
-## 3. Téléverser dans GitHub
+Le minimum requis au fonctionnement est `index.html`, `.nojekyll`, `favicon.svg` et le dossier `assets/` complet. Les guides et outils sont publics et peuvent aussi être téléversés. **Ne joindre aucun export personnel, fichier de travail ou document interne.**
 
-1. Ouvrir le [dépôt formation-portal](https://github.com/taillacq/formation-portal).
-2. Sur `main`, choisir **Add file → Upload files**.
-3. Glisser le **contenu** du dossier décompressé : `index.html`, le dossier `assets`, `favicon.svg` et les guides. Le dossier parent `formation-portal-v2` et le ZIP ne doivent pas être téléversés comme substitut au site.
-4. Vérifier que le nouveau `index.html` remplace bien celui à la racine et que les quatre fichiers existent sous `assets/`.
-5. Ajouter `.nojekyll` à la racine. Si l’explorateur masque ce fichier, afficher les fichiers masqués avant de le glisser ; autre possibilité : **Add file → Create new file**, nom `.nojekyll`, contenu vide (ou une simple ligne), puis enregistrer. La publication de fichiers HTML/JS/CSS simples reste possible sans ce fichier, mais il fait partie du lot prévu.
-6. Enregistrer le commit avec un message tel que `Portail V2 : cours enrichis et transfert de progression`.
+## 3. Contrôler le déploiement et la version
 
-Les guides et outils peuvent être téléversés aussi : ils ne contiennent que des informations publiques du projet. Le minimum nécessaire au fonctionnement est `index.html`, `.nojekyll`, `favicon.svg` et le dossier `assets/` complet.
+Dans [Actions](https://github.com/taillacq/formation-portal/actions), attendre la réussite de **pages build and deployment** pour le nouveau commit. Puis ouvrir le [portail](https://taillacq.github.io/formation-portal/).
 
-## 4. Attendre et contrôler
+Vérifier : **V3.0.0** en pied de page, navigation Git, trois parcours, **38 leçons** et **114 questions**, dont 12 leçons Git. Si une ancienne version apparaît, actualiser complètement (Ctrl+F5), vérifier l’URL et le résultat du déploiement. Les ressources portent `?v=3.0.0` pour distinguer le nouveau lot.
 
-Ouvrir [Actions](https://github.com/taillacq/formation-portal/actions) et attendre la réussite du déploiement **pages build and deployment** correspondant au commit. Si le déploiement échoue, lire l’erreur avant de modifier les paramètres.
+Le nom **ISTQB CTAL-TAE v2.0** reste normal : il désigne la version du syllabus, pas celle du portail.
 
-Ouvrir ensuite le [portail](https://taillacq.github.io/formation-portal/). Vérifier **V2.0.0** en pied de page, la marque « atelier » et les deux parcours affichant 16 et 10 leçons. Si l’ancien écran apparaît, actualiser complètement la page (Ctrl+F5) et vérifier l’URL. Le HTML référence les ressources avec `?v=2.0.0` pour distinguer le lot.
+## 4. Vérifier la reprise de progression
 
-Rejouer la liste de **VALIDATION.md**, en particulier l’aller-retour de progression entre deux navigateurs. Les cinq vérifications V1 réussies ne valent pas validation de cette nouvelle version.
+- Même navigateur et même adresse : les acquis ISTQB et Vibe Coding doivent être présents, Git démarre sans acquis. Un message signale la reprise V2 lors de cette première session.
+- Si les acquis attendus sont absents, ouvrir **Mes sauvegardes**, sélectionner l’export V2 conservé, vérifier l’aperçu et confirmer la fusion.
+- Si une progression V3 existe déjà dans ce navigateur, elle est prioritaire : un changement ultérieur en V2 exige un import explicite de la nouvelle sauvegarde V2.
+- Télécharger ensuite un premier export V3, terminer une leçon Git, répondre à son quiz et actualiser.
 
-## 5. Utiliser la progression V2
+La V2 ne sait pas relire un export V3 ; le transfert est compatible **V2 vers V3**, pas l’inverse.
 
-Sur l’appareil A, terminer une leçon et répondre à son quiz. Dans **Mes sauvegardes**, télécharger le JSON. Sur l’appareil B, ouvrir la même adresse du portail, sélectionner ce fichier, lire l’aperçu et cliquer **Confirmer la fusion**. Vérifier le compteur et le score après actualisation. Lors du retour à A, exporter B et fusionner dans A de la même façon.
+## 5. Valider le parcours et le transfert
 
-Il n’y a pas de synchronisation automatique ni de compte. Le navigateur doit autoriser les téléchargements et le choix de fichiers locaux. Si une règle du poste empêche ces actions, utiliser un moyen de transfert autorisé ; ne pas contourner les restrictions du poste.
+Rejouer **VALIDATION.md** depuis le navigateur professionnel. Vérifier cours et corrigés Git, persistance d’une leçon Git, import répété sans doublon et fusion entre deux appareils. L’atelier Git lui-même se pratique uniquement sur un poste où Git est autorisé ; sa lecture et ses quiz fonctionnent sans installation.
 
-## Retour à la version précédente
+## Retour à la V2
 
-Avant le retour, exporter la progression V2 et la conserver. Sur GitHub, restaurer les fichiers de la copie précédente ou annuler les commits de mise à jour avec un nouveau commit. Si `.nojekyll` a été ajouté par un commit séparé, prendre en compte les deux commits. Attendre le nouveau déploiement réussi et vérifier l’écran V1 après actualisation complète.
+Exporter d’abord la progression V3. Restaurer les fichiers de la V2 depuis la copie conservée ou annuler le commit de mise à jour avec un nouveau commit, puis attendre le déploiement et vérifier V2.0.0 après actualisation complète. Si `.nojekyll` a été ajouté séparément, prendre aussi ce commit en compte.
 
-La V1 ne sait pas lire le format V2. Les clés V2 restent dans le navigateur tant qu’elles ne sont pas effacées ; le fichier exporté permet de les réimporter lors d’une réinstallation de la V2 compatible. Ne pas effacer les données du navigateur pour revenir en arrière.
+La V2 retrouve sa propre clé, laissée intacte par la V3. Elle ne voit ni les nouvelles leçons Git ni les actions effectuées dans la V3. Garder l’export V3 pour une réinstallation ultérieure ; ne pas effacer le stockage du navigateur.
 
-Référence de publication : [GitHub Docs — Creating a GitHub Pages site](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site).
+Référence : [GitHub Docs — Creating a GitHub Pages site](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site).
